@@ -25,6 +25,7 @@ const CardInfo: FC<CardInfoProps> = ({ image, name, description, linkBtn }) => {
       <Meta title={name} description={description} />
       {linkBtn && (
         <Button
+          style={{ marginTop: "24px" }}
           type="primary"
           shape="round"
           onClick={
