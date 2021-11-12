@@ -11,9 +11,6 @@ const cardStyles = {
   backgroundColor: "#fff",
   maxWidth: "60rem",
   width: "90%",
-  firstChild: {
-    width: "100%",
-  },
 };
 
 const CardContainer: FC = ({ children }) => {

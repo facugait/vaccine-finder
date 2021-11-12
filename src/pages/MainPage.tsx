@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState, useRef } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Amplify from "@aws-amplify/core";
 import { Storage } from "aws-amplify";
 import { Layout } from "antd";
 import logo from "../canidLogo.png";
-// import mockedData from "../database/practices.json";
+import { getS3File } from "../utils/getS3File";
 import { Practice } from "../types/practice";
 import CardContainer from "../components/CardContainer";
 import MapContainer from "../components/Map";
@@ -18,14 +18,10 @@ const headerStyles = {
 };
 
 const MainPage: FC = () => {
-  const ref = useRef(null);
-  const [fileUrl, setFileUrl] = useState<any>();
+  const [fileUrl, setFileUrl] = useState<string>("");
   const [S3Data, setS3Data] = useState<Practice[]>([]);
-  // const [mockedS3Data, setMockedS3Data] = useState<Practice[]>();
 
   useEffect(() => {
-    // setMockedS3Data(mockedData.practices);
-
     Amplify.configure({
       Auth: {
         identityPoolId: "us-east-2:3cd9572e-be0e-42cc-9dec-b5c0debb7761",
@@ -39,16 +35,8 @@ const MainPage: FC = () => {
       },
     });
 
-    const getS3Json = () => {
-      return fetch(fileUrl)
-        .then((response) => response.json())
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-
     if (fileUrl) {
-      getS3Json().then((data) => setS3Data(data.practices));
+      getS3File(fileUrl).then((data) => setS3Data(data.practices));
     }
   }, [fileUrl]);
 
@@ -64,20 +52,6 @@ const MainPage: FC = () => {
 
   // console.log("URL", fileUrl);
   console.log("S3 DATA", S3Data);
-  // console.log("MOCKED S3 DATA", mockedS3Data);
-
-  const handleFileLoad = () => {
-    //@ts-ignore
-    const fileName = ref.current.files[0].name;
-    //@ts-ignore
-    Storage.put(fileName, ref.current.files[0])
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <Layout>
@@ -93,9 +67,6 @@ const MainPage: FC = () => {
           <MapContainer data={S3Data === undefined ? undefined : S3Data} />
         </CardContainer>
       </Content>
-      <div>
-        <input ref={ref} type="file" onChange={handleFileLoad} />
-      </div>
     </Layout>
   );
 };
