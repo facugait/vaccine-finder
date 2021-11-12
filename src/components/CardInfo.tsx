@@ -5,6 +5,7 @@ const { Meta } = Card;
 
 const cardInfoStyles = {
   width: "300px",
+  margin: "0 auto",
   border: "1px solid #e5e7eb",
   borderRadius: "10px",
   padding: "10px",

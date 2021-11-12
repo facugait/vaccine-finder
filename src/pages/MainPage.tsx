@@ -60,7 +60,7 @@ const MainPage: FC = () => {
         <img
           style={{ marginLeft: "auto", marginTop: "18px" }}
           src={logo}
-          alt=""
+          alt="logo"
         />
       </Header>
       <Content style={{ display: "flex", justifyContent: "center" }}>
