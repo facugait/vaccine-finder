@@ -5,11 +5,15 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { Button, Card } from "antd";
 import { Practice } from "../types/practice";
+import { Button } from "antd";
+import CardInfo from "./CardInfo";
 
 export const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const { Meta } = Card;
+
+const mapContainerStyles = {
+  width: "100%",
+};
 
 export interface MapProps {
   data?: Practice[] | undefined;
@@ -42,16 +46,16 @@ const Map: FC<MapProps> = (data) => {
   });
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={mapContainerStyles}>
+      {selected?.location && (
+        <CardInfo
+          image={selected.image}
+          name={selected.name}
+          description={selected.description}
+          linkBtn={selected.linkToScheduler}
+        />
+      )}
       <LoadScript googleMapsApiKey={`${GOOGLE_MAPS_API_KEY}`}>
-        {selected?.location && (
-          <Card
-            style={{ width: 240 }}
-            cover={<img alt="example" src={selected.image} />}
-          >
-            <Meta title={selected.name} description={selected.description} />
-          </Card>
-        )}
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}

@@ -3,7 +3,7 @@ import { Card } from "antd";
 
 const cardStyles = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   border: "1px solid #e5e7eb",
   borderRadius: "10px",
   margin: "40px auto",

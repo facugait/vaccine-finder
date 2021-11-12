@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import Amplify from "@aws-amplify/core";
 import { Storage } from "aws-amplify";
-import { Layout } from "antd";
 import logo from "../canidLogo.png";
 import { getS3File } from "../utils/getS3File";
+import { Layout } from "antd";
 import { Practice } from "../types/practice";
 import CardContainer from "../components/CardContainer";
 import MapContainer from "../components/Map";
+import TitleContainer from "../components/TitleContainer";
 
 const { Header, Content } = Layout;
 
@@ -64,6 +65,10 @@ const MainPage: FC = () => {
       </Header>
       <Content style={{ display: "flex", justifyContent: "center" }}>
         <CardContainer>
+          <TitleContainer
+            title="Vaccine Finder"
+            subtitle="Find the nearest pediatrician"
+          />
           <MapContainer data={S3Data === undefined ? undefined : S3Data} />
         </CardContainer>
       </Content>
