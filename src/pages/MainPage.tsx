@@ -17,9 +17,8 @@ const headerStyles = {
 };
 
 const MainPage: FC = () => {
-  const [fileUrl, setFileUrl] = useState<string>(
-    "https://react-canid-bucket.s3.us-east-2.amazonaws.com/public/practices.json"
-  );
+  const fileUrl =
+    "https://react-canid-bucket.s3.us-east-2.amazonaws.com/public/practices.json";
   const [S3Data, setS3Data] = useState<Practice[]>([]);
 
   useEffect(() => {
