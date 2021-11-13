@@ -20,10 +20,11 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: build
           to: "s3://react-canid-vaccine-finder"
-    branches:
-      only:
-        - master
 workflows:
   s3-deployment:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - master
