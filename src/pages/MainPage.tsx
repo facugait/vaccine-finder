@@ -1,6 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import Amplify from "@aws-amplify/core";
-import { Storage } from "aws-amplify";
 import logo from "../canidLogo.png";
 import { getS3File } from "../utils/getS3File";
 import { Layout } from "antd";
@@ -19,37 +17,16 @@ const headerStyles = {
 };
 
 const MainPage: FC = () => {
-  const [fileUrl, setFileUrl] = useState<string>("");
+  const [fileUrl, setFileUrl] = useState<string>(
+    "https://react-canid-bucket.s3.us-east-2.amazonaws.com/public/practices.json"
+  );
   const [S3Data, setS3Data] = useState<Practice[]>([]);
 
   useEffect(() => {
-    Amplify.configure({
-      Auth: {
-        identityPoolId: "us-east-2:3cd9572e-be0e-42cc-9dec-b5c0debb7761",
-        region: "us-east-2",
-      },
-      Storage: {
-        AWSS3: {
-          bucket: "react-canid-bucket",
-          region: "us-east-2",
-        },
-      },
-    });
-
     if (fileUrl) {
       getS3File(fileUrl).then((data) => setS3Data(data.practices));
     }
   }, [fileUrl]);
-
-  useEffect(() => {
-    Storage.get("practices.json")
-      .then((files) => {
-        setFileUrl(files);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   // console.log("URL", fileUrl);
   console.log("S3 DATA", S3Data);

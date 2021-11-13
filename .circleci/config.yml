@@ -1,0 +1,26 @@
+version: "2.1"
+orbs:
+  aws-s3: circleci/aws-s3@3.0
+jobs:
+  build:
+    docker:
+      - image: "node:14.18.0"
+    steps:
+      - checkout
+      - run: |
+          npm install
+          npm run build
+          echo "Build successful"
+      - aws-s3/sync:
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_DEFAULT_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: build
+          to: "s3://react-canid-vaccine-finder"
+workflows:
+  s3-deployment:
+    jobs:
+      - build
