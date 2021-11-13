@@ -26,8 +26,6 @@ const MainPage: FC = () => {
     }
   }, [fileUrl]);
 
-  console.log("S3 DATA", S3Data);
-
   return (
     <Layout>
       <Header style={headerStyles}>
