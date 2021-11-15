@@ -71,6 +71,8 @@ const Map: FC<MapProps> = (data) => {
               <CardInfo
                 image={selected.image}
                 name={selected.name}
+                address={selected.address}
+                phone={selected.phone}
                 description={selected.description}
                 linkBtn={selected.linkToScheduler}
               />

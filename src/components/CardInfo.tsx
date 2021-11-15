@@ -1,8 +1,6 @@
 import React, { FC, CSSProperties } from "react";
 import { Card, Button } from "antd";
 
-const { Meta } = Card;
-
 const cardInfoStyles = {
   width: "300px",
   margin: "0 auto",
@@ -16,17 +14,28 @@ const cardInfoStyles = {
 export interface CardInfoProps {
   image?: string;
   name?: string;
+  address?: string;
+  phone?: string;
   description?: string;
   linkBtn?: string;
 }
 
-const CardInfo: FC<CardInfoProps> = ({ image, name, description, linkBtn }) => {
+const CardInfo: FC<CardInfoProps> = ({
+  image,
+  name,
+  address,
+  phone,
+  description,
+  linkBtn,
+}) => {
   return (
     <Card style={cardInfoStyles} cover={<img alt="example" src={image} />}>
-      <Meta title={name} description={description} />
+      <p>{name}</p>
+      <p>{address}</p>
+      <p>{phone}</p>
+      <p>{description}</p>
       {linkBtn && (
         <Button
-          style={{ marginTop: "24px" }}
           type="primary"
           shape="round"
           onClick={
