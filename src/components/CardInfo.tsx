@@ -2,7 +2,7 @@ import React, { FC, CSSProperties } from "react";
 import { Card, Button } from "antd";
 
 const cardInfoStyles = {
-  width: "300px",
+  width: "400px",
   margin: "0 auto",
   border: "1px solid #e5e7eb",
   borderRadius: "10px",
