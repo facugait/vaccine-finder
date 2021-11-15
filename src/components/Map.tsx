@@ -6,7 +6,6 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import { Practice } from "../types/practice";
-import { Button } from "antd";
 import CardInfo from "./CardInfo";
 
 export const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -20,8 +19,8 @@ export interface MapProps {
 }
 
 const defaultCenter = {
-  lat: 40.7127,
-  lng: -74.0059,
+  lat: 40.73863,
+  lng: -73.98294,
 };
 
 const Map: FC<MapProps> = (data) => {
@@ -47,14 +46,6 @@ const Map: FC<MapProps> = (data) => {
 
   return (
     <div style={mapContainerStyles}>
-      {selected?.location && (
-        <CardInfo
-          image={selected.image}
-          name={selected.name}
-          description={selected.description}
-          linkBtn={selected.linkToScheduler}
-        />
-      )}
       <LoadScript googleMapsApiKey={`${GOOGLE_MAPS_API_KEY}`}>
         <GoogleMap
           mapContainerStyle={mapStyles}
@@ -77,25 +68,12 @@ const Map: FC<MapProps> = (data) => {
               position={selected.location}
               onCloseClick={() => setSelected({})}
             >
-              <div>
-                <p>{selected.name}</p>
-                <p>{selected.address}</p>
-                <p>{selected.phone}</p>
-                <p>
-                  {selected.linkToScheduler === null ? null : (
-                    <Button
-                      type="primary"
-                      onClick={
-                        () =>
-                          // (window.location.href = selected.linkToScheduler) // open scheduler in same window
-                          window.open(selected.linkToScheduler, "_blank") // open scheduler in new tab
-                      }
-                    >
-                      Make an appointment
-                    </Button>
-                  )}
-                </p>
-              </div>
+              <CardInfo
+                image={selected.image}
+                name={selected.name}
+                description={selected.description}
+                linkBtn={selected.linkToScheduler}
+              />
             </InfoWindow>
           )}
         </GoogleMap>
